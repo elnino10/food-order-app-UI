@@ -1,0 +1,28 @@
+.meals {
+  max-width: 60rem;
+  width: 90%;
+  margin: 2rem auto;
+  animation: reveal-meals 1s ease-out forwards;
+}
+
+.meals ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes reveal-meals {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+  70% {
+    opacity: 0.5;
+    transform: translateY(-1.5rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

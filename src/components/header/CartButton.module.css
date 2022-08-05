@@ -1,0 +1,108 @@
+.button {
+  cursor: pointer;
+  font: inherit;
+  border: none;
+  background-color: #1a1880;
+  color: white;
+  padding: 0.75rem 3rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 25px;
+  font-weight: bold;
+}
+
+.button:hover,
+.button:active {
+  background-color: #20297a;
+  transition: 300ms ease-in-out;
+}
+
+.icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-right: 0.5rem;
+}
+
+.badge {
+  background-color: #16122e;
+  padding: 0.25rem 1rem;
+  border-radius: 25px;
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+.button:hover .badge,
+.button:active .badge {
+  background-color: #1a1880;
+  transition: 300ms ease-in-out;
+}
+
+
+
+.bump {
+  animation: bump 300ms ease-out;
+}
+
+@media screen and (max-width: 760px) {
+  .button {
+    padding: 0.25rem 1rem;
+    border-radius: 50px;
+    font-weight: lighter;
+  }
+}
+
+@media screen and (max-width: 490px) {
+  .button-text {
+    display: none;
+  }
+  .badge {
+    font-weight: lighter;
+  }
+  .button {
+    padding: 0.25rem 1rem;
+    border-radius: 50px;
+    font-weight: lighter;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .badge {
+    width: 25px;
+    height: 20px;
+    border-radius: 25px;
+    font-size: 10px;
+    margin-left: 10px;
+  }
+  .button {
+    padding: 0.25rem 1rem;
+    border-radius: 50px;
+    font-weight: lighter;
+  }
+  .button-text {
+    display: none;
+  }
+  .icon {
+    width: 1rem;
+    height: 1rem;
+    margin-bottom: 5px;
+  }
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.9);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
