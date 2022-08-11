@@ -29,7 +29,7 @@ const Header = (props) => {
       >
         <Link to="/" className={classes.logo}>
           <img src="#" alt="logo" />
-          <h1>forks and fingers</h1>
+          <h2>forks and fingers</h2>
         </Link>
         <div className={classes.nav}>
           <ul className={classes.links}>
@@ -64,10 +64,9 @@ const Header = (props) => {
               </NavLink>
             </li>
           </ul>
-          <CartButton onShowCart={props.onShowCart} />
+            <CartButton onShowCart={props.onShowCart} />
         </div>
       </header>
-      
     </Fragment>
   );
 };

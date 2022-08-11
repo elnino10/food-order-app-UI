@@ -1,8 +1,9 @@
-import React, { Fragment } from "react";
+import React from "react";
+import AuthProvider from '../store/auth-ctx';
 
 const Layout = (props) => {
 
-  return <Fragment>{props.children}</Fragment>;
+  return <AuthProvider>{props.children}</AuthProvider>;
 };
 
 export default Layout;

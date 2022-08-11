@@ -22,11 +22,11 @@ const WelcomePage = () => {
             <MealSummary />
           </div>
           <div className={classes.message}>
-            <h2>
+            <h4>
               It's really great to have you visiting, we hope to give you an
               awesome experience. Sign in to make an order or continue on our
               blog posts.
-            </h2>
+            </h4>
             <div className={classes.actions}>
               <Link to='/login'>Login</Link>
               <Link to='/signup'>Sign Up</Link>

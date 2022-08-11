@@ -44,25 +44,26 @@
   animation: bump 300ms ease-out;
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 840px) {
+  .badge {
+    width: 25px;
+    height: 20px;
+    border-radius: 25px;
+    font-size: 10px;
+    margin-left: 10px;
+  }
   .button {
-    padding: 0.25rem 1rem;
+    padding: 0.75rem 1.5rem;
     border-radius: 50px;
     font-weight: lighter;
   }
-}
-
-@media screen and (max-width: 490px) {
   .button-text {
     display: none;
   }
-  .badge {
-    font-weight: lighter;
-  }
-  .button {
-    padding: 0.25rem 1rem;
-    border-radius: 50px;
-    font-weight: lighter;
+  .icon {
+    width: 1rem;
+    height: 1rem;
+    margin-bottom: 5px;
   }
 }
 

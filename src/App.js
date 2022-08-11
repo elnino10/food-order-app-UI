@@ -24,17 +24,17 @@ function App() {
 
   return (
     <Layout>
-      <CartProvider>
-        {showCart && <Cart onClose={closeCartHandler} />}
-        <Header onShowCart={showCartHandler} />
-        <Routes>
-          <Route path="/" element={<WelcomePage />} />
-          <Route path="/meals" element={<Meals />} />
-          <Route path="/login" element={<Auth />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/blogs" element={<BlogPage />} />
-        </Routes>
-      </CartProvider>
+        <CartProvider>
+          {showCart && <Cart onClose={closeCartHandler} />}
+          <Header onShowCart={showCartHandler} />
+          <Routes>
+            <Route path="/" element={<WelcomePage />} />
+            <Route path="/meals" element={<Meals />} />
+            <Route path="/login" element={<Auth />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/blogs" element={<BlogPage />} />
+          </Routes>
+        </CartProvider>
     </Layout>
   );
 }

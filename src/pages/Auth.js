@@ -1,102 +1,79 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../store/auth-ctx";
+import React, { useRef, useContext, useState } from "react";
+
+import { Link } from "react-router-dom";
+
+import AuthContext from "../store/auth-ctx";
+
+import { Form, Button, Card, Container, Alert } from "react-bootstrap";
 
 import classes from "./Auth.module.css";
 
 const Auth = () => {
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
+
+  const [error, setError] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const authCtx = useContext(AuthContext);
 
-  const [email, setEmail] = useState("");
-  const [emailTouched, setEmailTouched] = useState(false);
-
-  const [password, setPassword] = useState("");
-  const [passwordTouched, setPasswordTouched] = useState(false);
-
-  const emailIsValid = email.includes("@");
-  const passwordIsValid = password.trim().length > 5;
-
-  const emailIsInvalid = emailTouched && !emailIsValid;
-  const passwordIsInvalid = passwordTouched && !passwordIsValid;
-
-  let formIsValid = false;
-
-  if (emailIsValid && passwordIsValid) {
-    formIsValid = true;
-  }
-
-  const emailInputHandler = (event) => {
-    setEmail(event.target.value);
-
-    if (event.target.value === "") {
-      setEmailTouched(false);
-    }
+  const passwordHandler = (e) => {
+    setPasswordInput(e.target.value);
+    setError("");
   };
 
-  const passwordHandler = (event) => {
-    setPassword(event.target.value);
-
-    if (event.target.value === "") {
-      setPasswordTouched(false);
-    }
-  };
-
-  const authSubmitHandler = (event) => {
+  const loginHandler = async (event) => {
     event.preventDefault();
 
-    setEmailTouched(true);
-    setPasswordTouched(true);
-
-    if (!emailIsValid) {
-      setEmail("");
-      setEmailTouched(true);
-      return;
+    try {
+      setError("");
+      setIsLoading(true);
+      await authCtx.login(
+        emailInputRef.current.value,
+        passwordInputRef.current.value
+      );
+    } catch {
+      setError("Failed to sign in");
+      setIsLoading(true);
     }
-
-    if (!passwordIsValid) {
-      setPassword("");
-      setPasswordTouched(true);
-      return;
-    }
-
-    authCtx.loggedIn();
-
-    setEmail("");
-    setPassword("");
-    setEmailTouched(false);
-    setPasswordTouched(false);
+    setIsLoading(false);
   };
 
   return (
-    <section className={classes.auth}>
-      <form onSubmit={authSubmitHandler}>
-        <div className={classes.input}>
-          <label htmlFor="Username">Email</label>
-          <input
-            type="email"
-            id="email"
-            onChange={emailInputHandler}
-            value={email}
-          />
-          {emailIsInvalid && <p>Please enter a valid email</p>}
+    <Container className={`w-100 ${classes["sign-up"]}`}>
+      <Card>
+        <Card.Body>
+          <Form onSubmit={loginHandler}>
+            <h2 className="text-center mb-4">Log In</h2>
+            {error && <Alert variant="danger">{error}</Alert>}
+            <Form.Group id="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" required ref={emailInputRef} />
+            </Form.Group>
+            <Form.Group id="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                required
+                ref={passwordInputRef}
+                onChange={passwordHandler}
+                value={passwordInput}
+              />
+            </Form.Group>
+            <Button disabled={isLoading} type="submit" className="w-100 text-center">
+              Log In
+            </Button>
+          </Form>
+        </Card.Body>
+        <div className={`w-100 text-center mt-2 ${classes.alt}`}>
+          Don't have an account?{" "}
+          <Link className="text-decoration-none" to="/signup">
+            Sign Up
+          </Link>
         </div>
-        <div className={classes.input}>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            onChange={passwordHandler}
-            value={password}
-          />
-          {passwordIsInvalid && <p>Password must be 6 characters</p>}
-        </div>
-        <div className={classes.actions}>
-          <button disabled={!formIsValid}>Login</button>
-        </div>
-        <div>
-
-        </div>
-      </form>
-    </section>
+      </Card>
+    </Container>
   );
 };
 

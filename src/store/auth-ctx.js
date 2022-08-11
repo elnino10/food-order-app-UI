@@ -1,31 +1,35 @@
 import React, { useState } from "react";
 
-export const AuthContext = {
-  isLogin: false,
-  loggedIn: () => {},
-  loggedOut: () => {},
-};
+import { auth } from "../firebase";
+
+export const AuthContext = React.createContext();
 
 const AuthProvider = (props) => {
-  const [loginState, setLoginState] = useState(false);
+  const [newUser, setNewUser] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
-  const loginHandler = () => {
-    setLoginState(true);
+  const signup = (email, password) => {
+    return auth.createUserWithEmailAndPassword(email, password);
   };
 
-  const logoutHandler = () => { 
-    setLoginState(false);
-  };
+  const login = (email, password) => {
+    return auth.signInWithEmailAndPassword(email, password)
+  }
+
+  auth.onAuthStateChanged((user) => {
+    setIsLoading(false);
+    setNewUser(user);
+    });
 
   const authContext = {
-    islogin: loginState,
-    loggedIn: loginHandler,
-    loggedOut: logoutHandler,
+    newUser,
+    signup,
+    login
   };
 
   return (
     <AuthContext.Provider value={authContext}>
-      {props.children}
+      {!isLoading && props.children}
     </AuthContext.Provider>
   );
 };
